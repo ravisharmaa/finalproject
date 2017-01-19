@@ -22,9 +22,11 @@ Route::get('cms/logout', function (){
 });
 
 $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function (){
-    $this->get('dashboard',                 ['as'=> 'dashboard',                         'uses'=>'DashboardController']);
-    $this->get('category/index',            ['as'=> 'category.index',                    'uses'=>'CategoryController@index']);
-    $this->get('category/create',           ['as'=> 'category.create',                   'uses'=>'CategoryController@create']);
-    $this->post('category/save',             ['as'=> 'category.store',                    'uses'=>'CategoryController@store']);
+    $this->get('dashboard',                             ['as'=> 'dashboard',                                'uses'=>'DashboardController']);
+    $this->get('category/index',                        ['as'=> 'category.index',                           'uses'=>'CategoryController@index']);
+    $this->get('category/create',                       ['as'=> 'category.create',                          'uses'=>'CategoryController@create']);
+    $this->post('category/save',                        ['as'=> 'category.store',                           'uses'=>'CategoryController@store']);
+    $this->get('category/edit',                         ['as'=> 'category.edit',                            'uses'=>'CategoryController@edit']);
+    $this->get('category/add-subcat/{cat_name}',                   ['as'=> 'category.add_subcat',                       'uses'=>'CategoryController@subForm']);
 
 });

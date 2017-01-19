@@ -25,8 +25,9 @@ class CategoryController extends AdminBaseController
 
     public function index()
     {
+        $this->extra_values['title']        =   'category';
         $cat_data   =  DB::table('category')->where('parent_id', null)->get();
-        return view (parent::loadDefaultVars($this->view_path .'.index'),compact('cat_data'));
+        return view (parent::loadDefaultVars($this->view_path .'.index', $this->extra_values),compact('cat_data'));
     }
 
     public function create()
@@ -61,6 +62,13 @@ class CategoryController extends AdminBaseController
 
         }
 
+    }
+
+    public function subForm($cat_name)
+    {
+        $data   =   Category::select('id', 'name')
+                    ->where('name',$cat_name)->first();
+        return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
     }
 
 
