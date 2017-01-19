@@ -7,4 +7,6 @@
         <h1>{{'Index Of.'.ucfirst($extra_values['title'])}}</h1>
     </div>
     <a href="{{route($base_route.'.create')}}"><button class="btn btn-default">Create A Category</button></a>
+
+
 @endsection

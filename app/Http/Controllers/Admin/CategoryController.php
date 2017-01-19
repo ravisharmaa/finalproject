@@ -54,7 +54,7 @@ class CategoryController extends AdminBaseController
                 'child_type'    =>  $request->get('child_type'),
                 'image'         =>  $imageName
             ]);
-            return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_MESSAGE_SUCCESS'),
+            return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
                 [
                     'message'=>'New Category Has Been Created Successfully'
                 ]);
