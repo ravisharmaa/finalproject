@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Model\Category;
 use Illuminate\Support\Facades\Lang;
+use Illuminate\Support\Facades\DB;
 
 class CategoryController extends AdminBaseController
 {
@@ -24,7 +25,8 @@ class CategoryController extends AdminBaseController
 
     public function index()
     {
-        return view (parent::loadDefaultVars($this->view_path .'.index'));
+        $cat_data   =  DB::table('category')->where('parent_id', null)->get();
+        return view (parent::loadDefaultVars($this->view_path .'.index'),compact('cat_data'));
     }
 
     public function create()
