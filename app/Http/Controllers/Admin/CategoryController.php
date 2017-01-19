@@ -68,6 +68,7 @@ class CategoryController extends AdminBaseController
     {
         $data   =   Category::select('id', 'name')
                     ->where('name',$cat_name)->first();
+
         return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
     }
 
