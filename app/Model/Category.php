@@ -8,4 +8,12 @@ class Category extends Model
 {
     protected $table        =   'category';
     protected $fillable     =   ['id','parent_id','name','description','rank','status','image','child_type','slug'];
+
+
+
+
+    public function products()
+    {
+        return $this->hasMany('App\Model\Product');
+    }
 }

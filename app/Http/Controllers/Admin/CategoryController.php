@@ -54,6 +54,7 @@ class CategoryController extends AdminBaseController
                     'rank'          =>  $request->get('rank'),
                     'status'        =>  $request->get('status'),
                     'parent_id'     =>  $request->get('parent_id'),
+                    'slug'          =>  str_slug($request->get('name')),
                     'child_type'    =>  $request->get('child_type'),
                     'image'         =>  $imageName
                 ]);
@@ -78,6 +79,7 @@ class CategoryController extends AdminBaseController
                     'rank'          =>  $request->get('rank'),
                     'status'        =>  $request->get('status'),
                     'parent_id'     =>  null,
+                    'slug'          =>  str_slug($request->get('name')),
                     'child_type'    =>  $request->get('child_type'),
                     'image'         =>  $imageName
                 ]);
@@ -94,6 +96,9 @@ class CategoryController extends AdminBaseController
 
     public function subCatIndex($slug)
     {
+        $data       = [];
+        $data['parent']         =   Category::where('slug', $slug)->first();
+        $data['child']          =   Category::where('parent_id',$data['parent']->id)->get();
         $this->view_path= 'cms.category.sub-category';
 //        $data=   DB::table('category as root')
 //                ->select('name as root_name',
@@ -111,17 +116,7 @@ class CategoryController extends AdminBaseController
 //                        'left outer')
 //                ->where('root.parent_id','=',null)
 //                ->toSql();
-
-//        $data=   DB::table('category as root')
-//                ->select('name as root_name',
-//                        'down1.name as down1_name')
-//                ->join('category as down1',
-//                        'down1.parent_id','=','root.id',
-//                        'left outer')->tosql();
 //        dd($data);
-        $data=  DB::table('category')
-                ->select('id','name')
-                ->where('slug', $slug)->first();
         return view(parent::loadDefaultVars($this->view_path.'.index'),compact('data'));
     }
 
@@ -130,6 +125,19 @@ class CategoryController extends AdminBaseController
         $data   =   Category::findOrFail($cat_name);
         $this->view_path = 'cms.category.sub-category';
         return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
+    }
+
+    public function subChildIndex()
+    {
+        $data= DB::table('category')->where('slug','')->toSql();
+        dd($data);
+        $view_path= $this->view_path. '.' .'sub-category'.'.' .'sub-child';
+        return view(parent::loadDefaultVars($view_path.'.index'));
+    }
+
+    public function subChildCreate()
+    {
+
     }
 
 
