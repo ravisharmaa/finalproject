@@ -56,7 +56,7 @@ class LoginController extends Controller
        if(Auth::attempt($data)){
            return redirect()->route('cms.dashboard');
        } else {
-           return redirect()->back();
+           return redirect()->route('cms.login');
        }
     }
 }

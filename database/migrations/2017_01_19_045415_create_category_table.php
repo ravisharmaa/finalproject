@@ -21,6 +21,7 @@ class CreateCategoryTable extends Migration
             $table->string('image')->nullable();
             $table->boolean('status')->default('1');
             $table->string('child_type');
+            $table->string('slug')->nullable();
             $table->integer('parent_id')->nullable();
             $table->timestamps();
         });

@@ -64,11 +64,42 @@ class CategoryController extends AdminBaseController
 
     }
 
+    public function subCatIndex($slug)
+    {
+        $this->view_path= 'cms.category.sub-category';
+//        $data=   DB::table('category as root')
+//                ->select('name as root_name',
+//                        'down1.name as down1_name',
+//                        'down2.name as down2_name',
+//                        'down3.name as down3_name')
+//                ->join('category as down1',
+//                        'down1.parent_id','=','root.id',
+//                        'left outer')
+//                ->join('category as down2',
+//                        'down2.parent_id','=','down1.id',
+//                        'left outer')
+//                ->join('category as down3',
+//                        'down3.parent_id','=','down2.id',
+//                        'left outer')
+//                ->where('root.parent_id','=',null)
+//                ->toSql();
+//        $data=   $data=   DB::table('category as root')
+//                ->select('name as root_name',
+//                        'down1.name as down1_name')
+//                ->join('category as down1',
+//                        'down1.parent_id','=','root.id',
+//                        'left outer')->tosql();
+//        dd($data);
+        $data=  DB::table('category')->where('name','name')->toSql();
+        dd($data);
+       return view(parent::loadDefaultVars($this->view_path.'.index'),compact('data'));
+    }
+
     public function subForm($cat_name)
     {
+        $this->view_path = 'cms.category.sub-category';
         $data   =   Category::select('id', 'name')
                     ->where('name',$cat_name)->first();
-
         return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
     }
 

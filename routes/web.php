@@ -18,7 +18,7 @@ Route::get('/cms',              ['as'=>'cms.login',     'uses'=>'Auth\\LoginCont
 Route::post('/cms',             ['as'=>'cms.login',     'uses'=>'Auth\\LoginController@handleLogin']);
 Route::get('cms/logout', function (){
    Auth::logout();
-   return redirect()->route('cms.login');
+   return redirect()->back();
 });
 
 $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function (){
@@ -27,6 +27,7 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
     $this->get('category/create',                       ['as'=> 'category.create',                          'uses'=>'CategoryController@create']);
     $this->post('category/save',                        ['as'=> 'category.store',                           'uses'=>'CategoryController@store']);
     $this->get('category/edit',                         ['as'=> 'category.edit',                            'uses'=>'CategoryController@edit']);
-    $this->get('category/add-subcat/{cat_name}',                   ['as'=> 'category.add_subcat',                       'uses'=>'CategoryController@subForm']);
+    $this->get('sub-category/index/{slug}',             ['as'=> 'category.sub-cat.index',                            'uses'=>'CategoryController@subCatIndex']);
+    $this->get('category/add-subcat/{cat_name}',        ['as'=> 'category.add_subcat',                      'uses'=>'CategoryController@subForm']);
 
 });
