@@ -45,7 +45,8 @@ class CategoryController extends AdminBaseController
                 $imgDms['height']   =200;
                 $imgDms['width']    =200;
                 $image                  =  $request->file('image');
-                $imageName              =  AppHelper::imageProcessor($image,$this->upload_folder,$imgDms);
+                $upload_folder          = $this->upload_folder.'sub-category';
+                $imageName              =  AppHelper::imageProcessor($image,$upload_folder,$imgDms);
 
                 Category::create([
                     'name'          =>  $request->get('name'),
@@ -58,7 +59,7 @@ class CategoryController extends AdminBaseController
                 ]);
                 return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
                     [
-                        'message'=>'New Sub Category Has Been Created Successfully'
+                        'message'=>'New Sub-Category Has Been Created Successfully'
                     ]);
 
             }
@@ -130,6 +131,7 @@ class CategoryController extends AdminBaseController
         $this->view_path = 'cms.category.sub-category';
         return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
     }
+
 
 
 
