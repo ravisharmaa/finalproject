@@ -122,17 +122,18 @@ class CategoryController extends AdminBaseController
 
     public function subForm($cat_name)
     {
-        $data   =   Category::findOrFail($cat_name);
+        $data            =   Category::findOrFail($cat_name);
         $this->view_path = 'cms.category.sub-category';
         return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
     }
 
-    public function subChildIndex()
+    public function subChildIndex($id)
     {
-        $data= DB::table('category')->where('slug','')->toSql();
-        dd($data);
+        $data=      [];
+        $data['parent'] = DB::table('category')->where('slug',$id)->first();
+        $data['child']  = Category::where('parent_id',$data['parent']->id)->get();
         $view_path= $this->view_path. '.' .'sub-category'.'.' .'sub-child';
-        return view(parent::loadDefaultVars($view_path.'.index'));
+        return view(parent::loadDefaultVars($view_path.'.index'),compact('data'));
     }
 
     public function subChildCreate()

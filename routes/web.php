@@ -29,6 +29,6 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
     $this->get('category/edit',                         ['as'=> 'category.edit',                            'uses'=>'CategoryController@edit']);
     $this->get('sub-category/index/{slug}',             ['as'=> 'category.sub-cat.index',                   'uses'=>'CategoryController@subCatIndex']);
     $this->get('category/add-subcat/{cat_name}',        ['as'=> 'category.create.sub-cat',                  'uses'=>'CategoryController@subForm']);
-    $this->get('category/add-sub-child',                ['as'=> 'category.create.sub-child',                'uses'=>'CategoryController@subChildIndex']);
+    $this->get('category/add-sub-child/{slug}',         ['as'=> 'category.create.sub-child',                'uses'=>'CategoryController@subChildIndex']);
 
 });
