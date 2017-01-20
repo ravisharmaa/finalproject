@@ -38,29 +38,56 @@ class CategoryController extends AdminBaseController
 
     public function store(Request $request)
     {
-        if($request->hasFile('image'))
-        {
-            $imgDms =   [];
-            $imgDms['height']   =200;
-            $imgDms['width']    =200;
-            $image                  =  $request->file('image');
-            $imageName              =  AppHelper::imageProcessor($image,$this->upload_folder,$imgDms);
+        if(!empty($request->get('parent_id'))){
+            if($request->hasFile('image'))
+            {
+                $imgDms =   [];
+                $imgDms['height']   =200;
+                $imgDms['width']    =200;
+                $image                  =  $request->file('image');
+                $imageName              =  AppHelper::imageProcessor($image,$this->upload_folder,$imgDms);
 
-            Category::create([
-                'name'          =>  $request->get('name'),
-                'description'   =>  $request->get('description'),
-                'rank'          =>  $request->get('rank'),
-                'status'        =>  $request->get('status'),
-                'parent_id'     =>  null,
-                'child_type'    =>  $request->get('child_type'),
-                'image'         =>  $imageName
-            ]);
-            return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
-                [
-                    'message'=>'New Category Has Been Created Successfully'
+                Category::create([
+                    'name'          =>  $request->get('name'),
+                    'description'   =>  $request->get('description'),
+                    'rank'          =>  $request->get('rank'),
+                    'status'        =>  $request->get('status'),
+                    'parent_id'     =>  $request->get('parent_id'),
+                    'child_type'    =>  $request->get('child_type'),
+                    'image'         =>  $imageName
                 ]);
+                return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
+                    [
+                        'message'=>'New Sub Category Has Been Created Successfully'
+                    ]);
 
+            }
+        } else {
+            if($request->hasFile('image'))
+            {
+                $imgDms =   [];
+                $imgDms['height']   =200;
+                $imgDms['width']    =200;
+                $image                  =  $request->file('image');
+                $imageName              =  AppHelper::imageProcessor($image,$this->upload_folder,$imgDms);
+
+                Category::create([
+                    'name'          =>  $request->get('name'),
+                    'description'   =>  $request->get('description'),
+                    'rank'          =>  $request->get('rank'),
+                    'status'        =>  $request->get('status'),
+                    'parent_id'     =>  null,
+                    'child_type'    =>  $request->get('child_type'),
+                    'image'         =>  $imageName
+                ]);
+                return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
+                    [
+                        'message'=>'New Category Has Been Created Successfully'
+                    ]);
+
+            }
         }
+
 
     }
 
@@ -83,23 +110,24 @@ class CategoryController extends AdminBaseController
 //                        'left outer')
 //                ->where('root.parent_id','=',null)
 //                ->toSql();
-//        $data=   $data=   DB::table('category as root')
+
+//        $data=   DB::table('category as root')
 //                ->select('name as root_name',
 //                        'down1.name as down1_name')
 //                ->join('category as down1',
 //                        'down1.parent_id','=','root.id',
 //                        'left outer')->tosql();
 //        dd($data);
-        $data=  DB::table('category')->where('name','name')->toSql();
-        dd($data);
-       return view(parent::loadDefaultVars($this->view_path.'.index'),compact('data'));
+        $data=  DB::table('category')
+                ->select('id','name')
+                ->where('slug', $slug)->first();
+        return view(parent::loadDefaultVars($this->view_path.'.index'),compact('data'));
     }
 
     public function subForm($cat_name)
     {
+        $data   =   Category::findOrFail($cat_name);
         $this->view_path = 'cms.category.sub-category';
-        $data   =   Category::select('id', 'name')
-                    ->where('name',$cat_name)->first();
         return view(parent::loadDefaultVars($this->view_path.'.create_sub-cat'),compact('data'));
     }
 

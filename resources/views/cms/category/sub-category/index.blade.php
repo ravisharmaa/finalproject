@@ -3,8 +3,8 @@
     <div>
         <h1></h1>
     </div>
-    <a href="#"><button class="btn btn-default">Create A Category</button></a>
-    <a href="#"><button class="btn btn-danger">Edit Category</button></a>
+    <a href="{{route($base_route.'.create.sub-cat', $data->id)}}    "><button class="btn btn-default">Create A Sub-Category for {{$data->name}}</button></a>
+    <a href="#"><button class="btn btn-danger">Edit This Category</button></a>
     <hr/>
     @if(Session::has('message'))
         {!!  Session::get('message')  !!}
