@@ -5,6 +5,7 @@
     </div>
     <a href="{{route($base_route.'.create')}}"><button class="btn btn-default">Create A Category</button></a>
     {{--<a href="{{route($base_route.'.edit')}}"><button class="btn btn-danger">Edit Category</button></a>--}}
+    <a href="{{route('cms.product.index')}}"><button class="btn btn-primary">Product Index</button></a>
     <hr/>
     @if(Session::has('message'))
         {!!  Session::get('message')  !!}

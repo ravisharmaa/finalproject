@@ -90,11 +90,19 @@ class CategoryController extends AdminBaseController
 
     public function subChildIndex($id)
     {
+
         $data=      [];
         $data['parent'] = DB::table('category')->where('slug',$id)->first();
         $data['child']  = Category::where('parent_id',$data['parent']->id)->get();
-        $view_path= $this->view_path. '.' .'sub-category'.'.' .'sub-child';
-        return view(parent::loadDefaultVars($view_path.'.index'),compact('data'));
+        if($data['parent']->child_type=='product')
+        {
+            $view_path= 'cms.product.create';
+            return view(parent::loadDefaultVars($view_path),compact('data'));
+        }else {
+            $view_path= $this->view_path. '.' .'sub-category'.'.' .'sub-child';
+            return view(parent::loadDefaultVars($view_path.'.index'),compact('data'));
+        }
+
     }
 
     public function subChildCreate($id)

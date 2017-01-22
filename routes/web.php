@@ -34,5 +34,5 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
     $this->get('subcategory/create-child/{id}',          ['as'=>'category.add-child.subcat',                 'uses'=>'CategoryController@subChildCreate']);
 
     $this->post('product/create',                       ['as'=>'product.store',                                 'uses'=>'ProductController@store']);
-
+    $this->get('product/index',                         ['as'=>'product.index',                                  'uses'=>'ProductController@index']);
 });
