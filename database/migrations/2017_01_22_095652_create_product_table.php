@@ -19,7 +19,7 @@ class CreateProductTable extends Migration
             $table->foreign('category_id')->references('id')->on('category')->onDelete('cascade')->onUpdate('cascade');
             $table->string('product_name')->nullable();
             $table->boolean('status')->default('0');
-            $table->string('product_description')->nullable();
+            $table->text('product_description')->nullable();
             $table->string('wholesell_price')->nullable();
             $table->string('retail_price')->nullable();
             $table->timestamps();

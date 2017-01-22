@@ -55,4 +55,10 @@ class ProductController extends AdminBaseController
         }
         return redirect()->route('cms.category.index');
     }
+
+    public function show($id)
+    {
+        $data= Product::findOrFail($id);
+        return view(parent::loadDefaultVars($this->view_path.'.show'),compact('data'));
+    }
 }

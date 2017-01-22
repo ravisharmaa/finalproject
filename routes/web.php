@@ -35,4 +35,6 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
 
     $this->post('product/create',                       ['as'=>'product.store',                                 'uses'=>'ProductController@store']);
     $this->get('product/index',                         ['as'=>'product.index',                                  'uses'=>'ProductController@index']);
+    $this->get('product/show/{id}',                     ['as'=>'product.show',                                  'uses'=>'ProductController@show']);
+    $this->get('product/edit/{id}',                     ['as'=>'product.edit',                                  'uses'=>'ProductController@edit']);
 });

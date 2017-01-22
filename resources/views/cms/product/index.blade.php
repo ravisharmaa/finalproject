@@ -13,7 +13,7 @@
                   @else
                     <span class="label label-danger pull-right">Out-of Stock</span>  </h4>
                       @endif
-                <a href="#"><h5><span class="label label-primary pull-left">Details</span></h5></a>
+                <a href="{{route('cms.product.show',$d->id)}}"><h5><span class="label label-primary pull-left">Details</span></h5></a>
                 <span class="label label-danger pull-right">Delete</span>
 
             </div>
