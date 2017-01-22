@@ -16,6 +16,7 @@ class AdminBaseController extends AppBaseController
     protected $js_path;
     protected $master;
     protected $title;
+    protected $upload_folder;
 
     public function __construct()
     {
@@ -35,6 +36,7 @@ class AdminBaseController extends AppBaseController
             $view->with('view_path',    $this->view_path);
             $view->with('table',        $this->table);
             $view->with('master',       $this->master);
+            $view->with('upload_folder', $this->upload_folder);
             $view->with('extra_values',  $extra_values);
         });
         return $view_path;

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminBaseController;
 use App\Model\Category;
 use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\DB;
+use File;
 
 class CategoryController extends AdminBaseController
 {
@@ -38,22 +39,21 @@ class CategoryController extends AdminBaseController
 
     public function store(Request $request)
     {
-        if(!empty($request->get('parent_id'))){
             if($request->hasFile('image'))
             {
                 $imgDms =   [];
                 $imgDms['height']   =200;
                 $imgDms['width']    =200;
                 $image                  =  $request->file('image');
-                $upload_folder          = $this->upload_folder.'sub-category';
-                $imageName              =  AppHelper::imageProcessor($image,$upload_folder,$imgDms);
+//                $upload_folder          = $request->get('parent_id')==''?$this->upload_folder:$this->upload_folder.'.sub-category/';
+                $imageName              =  AppHelper::imageProcessor($image,$this->upload_folder,$imgDms);
 
                 Category::create([
                     'name'          =>  $request->get('name'),
                     'description'   =>  $request->get('description'),
                     'rank'          =>  $request->get('rank'),
                     'status'        =>  $request->get('status'),
-                    'parent_id'     =>  $request->get('parent_id'),
+                    'parent_id'     =>  $request->get('parent_id')==''?null:$request->get('parent_id'),
                     'slug'          =>  str_slug($request->get('name')),
                     'child_type'    =>  $request->get('child_type'),
                     'image'         =>  $imageName
@@ -64,34 +64,6 @@ class CategoryController extends AdminBaseController
                     ]);
 
             }
-        } else {
-            if($request->hasFile('image'))
-            {
-                $imgDms =   [];
-                $imgDms['height']   =200;
-                $imgDms['width']    =200;
-                $image                  =  $request->file('image');
-                $imageName              =  AppHelper::imageProcessor($image,$this->upload_folder,$imgDms);
-
-                Category::create([
-                    'name'          =>  $request->get('name'),
-                    'description'   =>  $request->get('description'),
-                    'rank'          =>  $request->get('rank'),
-                    'status'        =>  $request->get('status'),
-                    'parent_id'     =>  null,
-                    'slug'          =>  str_slug($request->get('name')),
-                    'child_type'    =>  $request->get('child_type'),
-                    'image'         =>  $imageName
-                ]);
-                return redirect()->route($this->base_route.'.index')->with('message', Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
-                    [
-                        'message'=>'New Category Has Been Created Successfully'
-                    ]);
-
-            }
-        }
-
-
     }
 
     public function subCatIndex($slug)
@@ -100,24 +72,13 @@ class CategoryController extends AdminBaseController
         $data['parent']         =   Category::where('slug', $slug)->first();
         $data['child']          =   Category::where('parent_id',$data['parent']->id)->get();
         $this->view_path= 'cms.category.sub-category';
-//        $data=   DB::table('category as root')
-//                ->select('name as root_name',
-//                        'down1.name as down1_name',
-//                        'down2.name as down2_name',
-//                        'down3.name as down3_name')
-//                ->join('category as down1',
-//                        'down1.parent_id','=','root.id',
-//                        'left outer')
-//                ->join('category as down2',
-//                        'down2.parent_id','=','down1.id',
-//                        'left outer')
-//                ->join('category as down3',
-//                        'down3.parent_id','=','down2.id',
-//                        'left outer')
-//                ->where('root.parent_id','=',null)
-//                ->toSql();
-//        dd($data);
-        return view(parent::loadDefaultVars($this->view_path.'.index'),compact('data'));
+        if($data['parent']->child_type=='product'){
+            $view_path= 'cms.product.create';
+            return view(parent::loadDefaultVars($view_path),compact('data'));
+        } else {
+            return view(parent::loadDefaultVars($this->view_path.'.index'),compact('data'));
+        }
+
     }
 
     public function subForm($cat_name)
@@ -136,12 +97,54 @@ class CategoryController extends AdminBaseController
         return view(parent::loadDefaultVars($view_path.'.index'),compact('data'));
     }
 
-    public function subChildCreate()
+    public function subChildCreate($id)
     {
-
+        $data= Category::findOrfail($id);
+        $view_path= 'cms.category.sub-category.sub-child';
+        return view(parent::loadDefaultVars($view_path.'.create'),compact('data'));
     }
 
 
+    public function edit($id)
+    {
+        $data= [];
+        $data['main']   =   Category::findOrFail($id);
+        $data['sub']    =   Category::select('id','name')->where('parent_id',null)->pluck('name','id');
+        return view(parent::loadDefaultVars($this->view_path.'.edit'),compact('data'));
+    }
+
+    public function update(Request $request, $id)
+    {
+
+        $data= Category::findOrFail($id);
+        $imgDms =   [];
+        $imgDms['height']   =200;
+        $imgDms['width']    =200;
+        if($request->hasFile('image'))
+        {
+           $this->deleteImageFile($data->image);
+           $imageName= AppHelper::imageProcessor($request->file('image'),$this->upload_folder,$imgDms);
+           $data->image= $imageName;
+        }
+
+        $data->name         =   $request->get('name');
+        $data->description  =   $request->get('description');
+        $data->status       =   $request->get('status');
+        $data->child_type   =   $request->get('child_type');
+        $data->parent_id    =   $request->get('parent_id')==''?null:$request->get('parent_id');
+        $data->save();
+        return redirect()->back();
+
+    }
+
+    public function deleteImageFile($data)
+    {
+        if(File::exists($this->upload_folder. $data)){
+             return File::delete($this->upload_folder.$data);
+        } else {
+            return false;
+        }
+    }
 
 
 }

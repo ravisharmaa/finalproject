@@ -4,7 +4,7 @@
         <h1>Create Sub Category for {{$data['parent']->name}}</h1>
     </div>
     <a href="{{route($base_route.'.create.sub-cat', $data['parent']->id)}}"><button class="btn btn-default">Create A Sub-Category for {{$data['parent']->name}}</button></a>
-    <a href="#"><button class="btn btn-danger">Edit This Category</button></a>
+    <a href="{{route($base_route.'.edit', $data['parent']->id)}}"><button class="btn btn-danger">Edit This Category</button></a>
     <hr/>
     @if(Session::has('message'))
         {!!  Session::get('message')  !!}

@@ -17,10 +17,10 @@
 
             </div>
     </div>
-
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{{asset($js_path.'bootstrap.js')}}"></script>
 <script src="{{asset($js_path.'jquery.form.min.js')}}"></script>
+<script src="{{asset($js_path.'jquery-ui.min.js')}}"></script>
 @yield('extra-scripts')
 </body>
 </html>

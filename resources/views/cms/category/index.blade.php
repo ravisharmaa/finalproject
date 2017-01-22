@@ -1,10 +1,10 @@
 @extends('cms.'.$master)
 @section('content')
     <div>
-        <h1>{{"List Of Parent"  .  ucfirst($extra_values['title'])}}</h1>
+        <h1>{{"List Of Parent "  .  ucfirst($extra_values['title'])}}</h1>
     </div>
     <a href="{{route($base_route.'.create')}}"><button class="btn btn-default">Create A Category</button></a>
-    <a href="{{route($base_route.'.edit')}}"><button class="btn btn-danger">Edit Category</button></a>
+    {{--<a href="{{route($base_route.'.edit')}}"><button class="btn btn-danger">Edit Category</button></a>--}}
     <hr/>
     @if(Session::has('message'))
         {!!  Session::get('message')  !!}

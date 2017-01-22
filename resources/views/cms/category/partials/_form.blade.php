@@ -23,6 +23,11 @@
     {{Form::radio('child_type','sub-category',true)}}Sub Category
     {{Form::radio('child_type','product')}}Product
 </div>
+@if(isset($data['main']->image))
+<img src="{{asset($upload_folder. $data['main']->image)}}" height="100px" width="100px">
+@else
+    <p>No Image Available</p>
+@endif
 <div class="form-group">
     {{  Form::label('image',"Image")}}
     {{  Form::file('image',['id'=>'image'])}}
