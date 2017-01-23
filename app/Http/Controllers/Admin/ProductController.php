@@ -70,6 +70,12 @@ class ProductController extends AdminBaseController
 
     public function update(Request $request,$id)
     {
-        dd($request);
+        $data                       =   Product::findOrFail($id);
+       $data->product_name          =   $request->get('product_name');
+       $data->product_description   =   $request->get('product_description');
+       $data->status                =   $request->get('status');
+       $data->wholesell_price       =   $request->get('wholesell_price');
+       $data->retail_price          =   $request->get('retails_price');
+
     }
 }
