@@ -16,6 +16,9 @@ Route::get('/', function(){
 
 Route::get('/cms',              ['as'=>'cms.login',     'uses'=>'Auth\\LoginController@showLoginForm']);
 Route::post('/cms',             ['as'=>'cms.login',     'uses'=>'Auth\\LoginController@handleLogin']);
+Route::get('/redirect',         ['as'=>'cms.redirect',  'uses'=>'SocialAuthController@redirect'   ]);
+Route::get('/callback',         ['as'=>'cms.callback',    'uses'=>'SocialAuthController@callback']);
+
 Route::get('cms/logout', function (){
    Auth::logout();
    return redirect()->back();

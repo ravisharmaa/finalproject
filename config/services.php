@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook'=>[
+        'client_id'         =>  '1786868418303472',
+        'client_secret'     =>  '1097e781d58713ed8a12abecd63422a9',
+        'redirect'          =>  'http://finalproject.dev/cms/dashboard'
+    ],
+
 ];

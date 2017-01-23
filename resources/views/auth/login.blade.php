@@ -60,6 +60,12 @@
                             </div>
                         </div>
                     </form>
+                    <div class="col-xs-4 col-sm-2">
+                        <a href="{{route('cms.redirect')}}" class="btn btn-lg btn-block omb_btn-facebook">
+                            <i class="fa fa-facebook visible-xs"></i>
+                            <span class="hidden-xs">Login With Facebook</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
