@@ -23,8 +23,11 @@
     {{Form::radio('status',1,true)}}Available
     {{Form::radio('status',0)}}Un-Available
 </div>
-@if(isset($data['main']->image))
-    <img src="{{asset($upload_folder. $data['main']->image)}}" height="100px" width="100px">
+@if(isset($data->images))
+   <p>Previous Images</p>
+    @foreach($data->images as $img)
+      <p><img src="{{asset($upload_folder.$img->image)}}" height="50" width="50"></p>
+    @endforeach
 @else
     <p>No Image Available</p>
 @endif

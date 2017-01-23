@@ -1,3 +1,4 @@
+
 @extends('cms.'.$master)
 @section('content')
     <div>
@@ -17,7 +18,10 @@
     <div class="col-md-4">
         <div class="jumbotron">
             <h3>Category: {{$data->category->name}}</h3>
-            <p></p>
+            @foreach($data->images as $img)
+                <p>Image:<img src="{{asset($upload_folder.$img->image)}}" height="100px" width="100px"></p>
+            @endforeach
+
             <p>This is some text.</p>
             <p>This is another text.</p>
         </div>
