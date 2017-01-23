@@ -34,7 +34,7 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
     $this->get('sub-category/index/{slug}',             ['as'=> 'category.sub-cat.index',                   'uses'=>'CategoryController@subCatIndex']);
     $this->get('category/add-subcat/{cat_name}',        ['as'=> 'category.create.sub-cat',                  'uses'=>'CategoryController@subForm']);
     $this->get('category/add-sub-child/{slug}',         ['as'=> 'category.create.sub-child',                'uses'=>'CategoryController@subChildIndex']);
-    $this->get('subcategory/create-child/{id}',          ['as'=>'category.add-child.subcat',                 'uses'=>'CategoryController@subChildCreate']);
+    $this->get('subcategory/create-child/{id}',         ['as'=>'category.add-child.subcat',                 'uses'=>'CategoryController@subChildCreate']);
     $this->get('category/delete/{id}',                  ['as'=>'category.delete',                           'uses'=>'CategoryController@delete']);
 
     $this->post('product/create',                       ['as'=>'product.store',                                 'uses'=>'ProductController@store']);

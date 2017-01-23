@@ -99,7 +99,7 @@ class ProductController extends AdminBaseController
         return redirect()->route('cms.category.index')->with('message',Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
 
         [
-            'message'   =>  'Poduct updated Successfully'
+            'message'   =>  'Product updated Successfully'
         ]);
 
 
