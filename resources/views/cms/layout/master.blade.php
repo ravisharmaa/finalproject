@@ -11,6 +11,7 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 </head>
 <body>
+    @yield('search-box')
     <div class="container">
         @yield('content')
             <div class="row">
@@ -20,7 +21,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="{{asset($js_path.'bootstrap.js')}}"></script>
 <script src="{{asset($js_path.'jquery.form.min.js')}}"></script>
-<script src="{{asset($js_path.'jquery-ui.min.js')}}"></script>
+
 @yield('extra-scripts')
+    <script src="{{asset($js_path.'jquery-ui.min.js')}}"></script>
 </body>
 </html>

@@ -37,4 +37,7 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
     $this->get('product/index',                         ['as'=>'product.index',                                  'uses'=>'ProductController@index']);
     $this->get('product/show/{id}',                     ['as'=>'product.show',                                  'uses'=>'ProductController@show']);
     $this->get('product/edit/{id}',                     ['as'=>'product.edit',                                  'uses'=>'ProductController@edit']);
+
+//    Routes for search
+    $this->get('search/products',                       ['as'=>'category.search',                              'uses'=>'DashboardController@search']);
 });

@@ -13,4 +13,9 @@ class DashboardController extends AdminBaseController
     {
         return view(parent::loadDefaultVars($this->view_path. '.index'));
     }
+
+    public function search(Request $request)
+    {
+        dd($request);
+    }
 }

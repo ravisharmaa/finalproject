@@ -1,10 +1,29 @@
 @extends('cms.'.$master)
+@section('search-box')
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <h1>Search Products</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4 col-md-offset-3">
+               {{Form::open(['route'=>$base_route.'.search','method'=>'GET','class'=>'search-form'])}}
+                    <div class="form-group has-feedback">
+                      {{Form::label('search',"Search",['class'=>'sr-only'])}}
+                        {{Form::text('search',null,['class'=>'form-control','id'=>'search','placeholder'=>'Search The Product You Wish'])}}
+                        <span class="glyphicon glyphicon-search form-control-feedback"></span>
+                    </div>
+               {{Form::close()}}
+            </div>
+        </div>
+    </div>
+@endsection
 @section('content')
     <div>
         <h1>{{"List Of Parent "  .  ucfirst($extra_values['title'])}}</h1>
     </div>
     <a href="{{route($base_route.'.create')}}"><button class="btn btn-default">Create A Category</button></a>
-    {{--<a href="{{route($base_route.'.edit')}}"><button class="btn btn-danger">Edit Category</button></a>--}}
     <a href="{{route('cms.product.index')}}"><button class="btn btn-primary">Product Index</button></a>
     <hr/>
     @if(Session::has('message'))
@@ -22,3 +41,10 @@
     @endforeach
 
 @endsection
+
+    <script type="text/javascript">
+        $("document").ready(function () {
+            console.log('hello');
+        })
+    </script>
+

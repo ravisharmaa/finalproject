@@ -61,4 +61,10 @@ class ProductController extends AdminBaseController
         $data= Product::findOrFail($id);
         return view(parent::loadDefaultVars($this->view_path.'.show'),compact('data'));
     }
+
+    public function edit($id)
+    {
+        $data= Product::findOrFail($id);
+        return view(parent::loadDefaultVars($this->view_path.'.edit'),compact('data'));
+    }
 }
