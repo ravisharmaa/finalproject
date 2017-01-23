@@ -19,11 +19,9 @@
         <div class="jumbotron">
             <h3>Category: {{$data->category->name}}</h3>
             @foreach($data->images as $img)
-                <p>Image:<img src="{{asset($upload_folder.$img->image)}}" height="100px" width="100px"></p>
+                <p>Images:<img src="{{asset($upload_folder.$img->image)}}" height="50px" width="50px"></p>
             @endforeach
 
-            <p>This is some text.</p>
-            <p>This is another text.</p>
         </div>
     </div>
 

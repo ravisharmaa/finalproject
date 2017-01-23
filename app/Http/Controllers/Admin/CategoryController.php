@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Classes\AppHelper;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Model\Category;
 use Illuminate\Support\Facades\Lang;
@@ -37,7 +38,7 @@ class CategoryController extends AdminBaseController
         return view(parent::loadDefaultVars($this->view_path.'.create',$this->extra_values));
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
             if($request->hasFile('image'))
             {
