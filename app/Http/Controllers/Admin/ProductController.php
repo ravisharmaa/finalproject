@@ -76,10 +76,10 @@ class ProductController extends AdminBaseController
        $data->status                =   $request->get('status');
        $data->wholesell_price       =   $request->get('wholesell_price');
        $data->retail_price          =   $request->get('retails_price');
+       $data->save();
 
-        $product_image               =   Image::where('product_id',$id)->first();
-        dd($product_image);
         foreach ($request->file('image') as $image){
+
             $filename   =   $image->getClientOriginalName();
             $filename   =   pathinfo($filename, PATHINFO_FILENAME);
             $imageName  =   str_slug($filename).'.'.$image->getClientOriginalExtension();
@@ -87,10 +87,17 @@ class ProductController extends AdminBaseController
                 File::makeDirectory($this->upload_folder, 0777, true);
             }
             $image->move($this->upload_folder, $imageName);
-            \DB::table('product_image')->insert([
-                'product_id'    => $data->id,
-                'image'         => $imageName,
+
+            $product_image  = Image::where('product_id',$id)->update([
+                    'product_id'=>  $id,
+                    'image'     => $imageName,
             ]);
+            
         }
+
+        return redirect()->route('cms.category.index');
+
+
+
     }
 }
