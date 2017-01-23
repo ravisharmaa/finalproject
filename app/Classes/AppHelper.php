@@ -3,7 +3,8 @@ namespace App\Classes;
 use Image;
 use File;
 
-class AppHelper{
+class AppHelper
+{
 
     public static function imageProcessor($image,$upload_folder,$imgDms)
     {

@@ -41,10 +41,25 @@
     @endforeach
 
 @endsection
-
+@section('extra-scripts')
     <script type="text/javascript">
         $("document").ready(function () {
-            console.log('hello');
+            $("#search").keyup(function () {
+                var search = $(this).val();
+                var params= {'search':search};
+                $.ajax({
+                    method:'GET',
+                    url: '{{route($base_route.'.search')}}',
+                    data: params,
+                    success:function(response){
+                       var data = jQuery.parseJSON(response);
+                       console.log(data);
+
+                    }
+
+                });
+            });
         })
     </script>
+@endsection
 

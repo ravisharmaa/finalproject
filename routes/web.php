@@ -38,10 +38,10 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
     $this->get('category/delete/{id}',                  ['as'=>'category.delete',                           'uses'=>'CategoryController@delete']);
 
     $this->post('product/create',                       ['as'=>'product.store',                                 'uses'=>'ProductController@store']);
-$this->get('product/index',                             ['as'=>'product.index',                                     'uses'=>'ProductController@index']);
+    $this->get('product/index',                         ['as'=>'product.index',                                     'uses'=>'ProductController@index']);
     $this->get('product/show/{id}',                     ['as'=>'product.show',                                  'uses'=>'ProductController@show']);
     $this->get('product/edit/{id}',                     ['as'=>'product.edit',                                  'uses'=>'ProductController@edit']);
-$this->put('product/update/{id}',                       ['as'=>'product.update',                                    'uses'=>'ProductController@update']);
+    $this->put('product/update/{id}',                   ['as'=>'product.update',                                    'uses'=>'ProductController@update']);
 
 //    Routes for search
     $this->get('search/products',                       ['as'=>'category.search',                              'uses'=>'DashboardController@search']);
