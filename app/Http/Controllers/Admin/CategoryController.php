@@ -155,5 +155,14 @@ class CategoryController extends AdminBaseController
         }
     }
 
+    public function delete($id)
+    {
+        $data= Category::findOrFail($id);
+        $this->deleteImageFile($data->image);
+        $data->delete();
+        return redirect()->route($this->base_route.'.index');
+
+    }
+
 
 }

@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\AdminBaseController;
 use App\Model\Product;
 use App\Model\Image;
 use File;
+use Illuminate\Support\Facades\Lang;
 
 class ProductController extends AdminBaseController
 {
@@ -75,7 +76,7 @@ class ProductController extends AdminBaseController
        $data->product_description   =   $request->get('product_description');
        $data->status                =   $request->get('status');
        $data->wholesell_price       =   $request->get('wholesell_price');
-       $data->retail_price          =   $request->get('retails_price');
+       $data->retail_price          =   $request->get('retail_price');
        $data->save();
 
         foreach ($request->file('image') as $image){
@@ -91,11 +92,15 @@ class ProductController extends AdminBaseController
             $product_image  = Image::where('product_id',$id)->update([
                     'product_id'=>  $id,
                     'image'     => $imageName,
-            ]);
-            
+                ]);
+
         }
 
-        return redirect()->route('cms.category.index');
+        return redirect()->route('cms.category.index')->with('message',Lang::get('response.CUSTOM_SUCCESS_MESSAGE'),
+
+        [
+            'message'   =>  'Poduct updated Successfully'
+        ]);
 
 
 

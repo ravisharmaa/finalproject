@@ -34,7 +34,7 @@
             <div class="well">
                 <h4 class="text-success"><span class="label label-success pull-right">{{$cd->child_type}}</span> {{ucfirst($cd->name)}} </h4>
                 <a href="{{route($base_route.'.sub-cat.index', $cd->slug)}}"><h5><span class="label label-primary pull-left">Edit</span></h5></a>
-                <span class="label label-danger pull-right">Delete</span>
+                <a href="{{route($base_route.'.delete',$cd->id)}}"><span class="label label-danger pull-right">Delete</span></a>
                 <span class="label label-info pull-right">Details</span>
             </div>
         </div>
