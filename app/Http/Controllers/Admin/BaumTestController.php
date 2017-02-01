@@ -31,7 +31,7 @@ class BaumTestController extends AdminBaseController
                 'parent_slug'    =>   str_slug($request->get('name')),
             ]);
         } else {
-            $root = Test::where('parent_slug',$slug)->first();
+            $root   = Test::where('parent_slug',$slug)->first();
             $child1 = $root->children()->create([
                 'parent_name'   =>  $root->parent_name,
                 'name'          =>  $request->get('name'),
