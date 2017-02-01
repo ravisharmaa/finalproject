@@ -13,7 +13,8 @@ class BaumTestController extends AdminBaseController
 
     public function index()
     {
-        return view(parent::loadDefaultVars($this->view_path.'.index'));
+        $data = Test::where('name','Parent Category')->get();
+        return view(parent::loadDefaultVars($this->view_path.'.index'), compact('data'));
     }
 
     public function create()
@@ -26,14 +27,13 @@ class BaumTestController extends AdminBaseController
         $root = Test::create([
             'parent_name'    =>  $request->get('name'),
             'name'           =>  'Parent Category',
+            'parent_slug'    =>   str_slug($request->get('name')),
         ]);
-        if($request->has('child_name') && !empty($request->get('child_name'))){
-            $child1= $root->children()->create([
-                'parent_name'   => $request->get('name'),
-                'name'=>'Child1'
-            ]);
-        }
         return redirect()->route($this->base_route.'.index');
+    }
+
+    public function createChild($slug)
+    {
 
     }
 

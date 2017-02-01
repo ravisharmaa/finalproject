@@ -17,6 +17,7 @@ class CreateBaumTestTable extends Migration
             $table->increments('id');
             $table->string('name')->nullable();
             $table->string('parent_name')->nullable();
+            $table->string('parent_slug')->nullable();
             $table->integer('parent_id')->nullable();
             $table->integer('lft')->nullable();
             $table->integer('rgt')->nullable();

@@ -19,5 +19,5 @@ class Test extends Baum\Node
 
     protected $guarded      = ['id','parent_id','lft','rgt','depth'];
 
-    protected $fillable     =   ['parent_name','name'];
+    protected $fillable     =   ['parent_name','name','parent_slug'];
 }
