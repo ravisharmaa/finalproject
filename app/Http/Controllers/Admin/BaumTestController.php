@@ -22,19 +22,30 @@ class BaumTestController extends AdminBaseController
        return view(parent::loadDefaultVars($this->view_path.'.create'));
     }
 
-    public function store(Request $request)
+    public function store(Request $request, $slug=null)
     {
-        $root = Test::create([
-            'parent_name'    =>  $request->get('name'),
-            'name'           =>  'Parent Category',
-            'parent_slug'    =>   str_slug($request->get('name')),
-        ]);
+        if($slug==null){
+            $root = Test::create([
+                'parent_name'    =>  $request->get('name'),
+                'name'           =>  'Parent Category',
+                'parent_slug'    =>   str_slug($request->get('name')),
+            ]);
+        } else {
+            $root = Test::where('parent_slug',$slug)->first();
+            $child1 = $root->children()->create([
+                'parent_name'   =>  $root->parent_name,
+                'name'          =>  $request->get('name'),
+            ]);
+        }
         return redirect()->route($this->base_route.'.index');
     }
 
     public function createChild($slug)
     {
-
+        $parent_data = Test::where('parent_slug', $slug)->first();
+        return view (parent::loadDefaultVars($this->view_path.'.create'), compact('parent_data'));
     }
+
+
 
 }

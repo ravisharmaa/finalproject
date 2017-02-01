@@ -2,6 +2,7 @@
 namespace App\Classes;
 use Image;
 use File;
+use App\Model\Test;
 
 class AppHelper
 {
@@ -20,6 +21,11 @@ class AppHelper
             ->save ($upload);
         return $imageName;
 
+    }
+
+    public static function getValues($data, $attributes)
+    {
+        return $data->$attributes;
     }
 
 }

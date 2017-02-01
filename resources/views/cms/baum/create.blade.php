@@ -1,8 +1,12 @@
 @extends('cms.'.$master)
     @section('content')
-        {{Form::open(['route'=>$base_route.'.store',"method"=>'POST'])}}
-        @include('cms.partials.formerrors')
-        @include($view_path.'.partials._form',['submitButton'=>"Save"])
+        @if(isset($parent_data))
+            {{Form::open([ 'route'=>[$base_route.'.save-child',$parent_data->parent_slug], "method"=>'POST']) }}
+        @else
+            {{Form::open([ 'route'=>$base_route.'.store', "method"=>'POST' ])}}
+        @endif
+            @include('cms.partials.formerrors')
+            @include($view_path.'.partials._form',['submitButton'=>"Save"])
         {{Form::close()}}
     @endsection
 
