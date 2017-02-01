@@ -38,7 +38,7 @@
                     console.log(request.responseText)
                 },
                 success : function (data) {
-
+                    console.log(data);
                 }
             });
         }

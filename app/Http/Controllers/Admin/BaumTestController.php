@@ -52,7 +52,7 @@ class BaumTestController extends AdminBaseController
         $data           =   [];
         $data['index']  =   integerValue($index);
         $data['html']   =   view($this->view_path.'.partials._render_form', compact($data))->render();
-        return response(json(json_encode($data)));
+        return response()->json(json_encode($data));
     }
 
 
