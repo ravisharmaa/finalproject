@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\AdminBaseController;
 use App\Model\Test;
+use Baum;
 
 class BaumTestController extends AdminBaseController
 {
@@ -13,7 +14,7 @@ class BaumTestController extends AdminBaseController
 
     public function index()
     {
-        $data = Test::where('name','Parent Category')->get();
+        $data   =   Test::where('name','Parent Category')->get();
         return view(parent::loadDefaultVars($this->view_path.'.index'), compact('data'));
     }
 
@@ -44,6 +45,14 @@ class BaumTestController extends AdminBaseController
     {
         $parent_data = Test::where('parent_slug', $slug)->first();
         return view (parent::loadDefaultVars($this->view_path.'.create'), compact('parent_data'));
+    }
+
+    public function renderHtml($index)
+    {
+        $data           =   [];
+        $data['index']  =   integerValue($index);
+        $data['html']   =   view($this->view_path.'.partials._render_form', compact($data))->render();
+        return response(json(json_encode($data)));
     }
 
 

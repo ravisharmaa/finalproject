@@ -54,5 +54,6 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
 
 //    Routes for creating child within a parent category
     $this->get('baum/test-create-child/{slug}',             ['as'=>'baum.test-create-child',                        'uses'=>'BaumTestController@createChild']);
+    $this->get('baum/child-form/{index}',               ['as'=>'baum.show-form',                                'uses'=>'BaumTestController@renderHtml']);
 
 });
