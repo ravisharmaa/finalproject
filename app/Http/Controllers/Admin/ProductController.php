@@ -89,7 +89,7 @@ class ProductController extends AdminBaseController
             }
             $image->move($this->upload_folder, $imageName);
 
-            $product_image  = Image::where('product_id',$id)->update([
+            $product_image  = Image::where('product_id',$id)->insert([
                     'product_id'=>  $id,
                     'image'     => $imageName,
                 ]);

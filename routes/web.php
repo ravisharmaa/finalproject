@@ -45,4 +45,10 @@ $this->group(['prefix'=>'cms',  'as'=>'cms.', 'namespace'=>'Admin\\'], function 
 
 //    Routes for search
     $this->get('search/products',                       ['as'=>'category.search',                              'uses'=>'DashboardController@search']);
+
+//    Routes for nested set model
+    $this->get('baum/index',                             ['as'=>'baum.index',                                  'uses'=>'BaumTestController@index']);
+    $this->get('baum/create',                             ['as'=>'baum.create',                                 'uses'=>'BaumTestController@create']);
+    $this->post('baum/store',                             ['as'=>'baum.store',                                  'uses'=>'BaumTestController@store']);
+
 });

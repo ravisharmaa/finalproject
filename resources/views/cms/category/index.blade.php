@@ -8,7 +8,6 @@
         </div>
         <div class="row">
             <div class="col-md-4 col-md-offset-3">
-
                     <div class="form-group has-feedback">
                       {{Form::label('search',"Search",['class'=>'sr-only'])}}
                         {{Form::text('search',null,['class'=>'form-control','id'=>'search','placeholder'=>'Search The Product You Wish'])}}
