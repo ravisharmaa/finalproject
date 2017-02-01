@@ -9,9 +9,12 @@
     @section('extra-scripts')
         <script type="text/javascript">
             $(document).ready(function () {
+                $("#child_form").hide();
                 $("#child-check").click(function () {
-                   var val = $(this);
-                   console.log(val);
+                    var val = $(this);
+                    if(val.val()==="Yes"){
+                        $("#child_form").show();
+                    }
                 });
             });
         </script>

@@ -24,9 +24,15 @@ class BaumTestController extends AdminBaseController
     public function store(Request $request)
     {
         $root = Test::create([
-                'parent_name'    =>  $request->get('name'),
-                'name'           =>   'Parent Category',
-                ]);
+            'parent_name'    =>  $request->get('name'),
+            'name'           =>  'Parent Category',
+        ]);
+        if($request->has('child_name') && !empty($request->get('child_name'))){
+            $child1= $root->children()->create([
+                'parent_name'   => $request->get('name'),
+                'name'=>'Child1'
+            ]);
+        }
         return redirect()->route($this->base_route.'.index');
 
     }
